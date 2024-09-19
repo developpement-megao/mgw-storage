@@ -18,6 +18,9 @@ export abstract class AppStorage extends AppStorageReader {
     }
   }
 
+  /**
+   * Suppression de l'entrée dans le stockage.
+   */
   removeItem(): void {
     if (this.lStorageType === 'L') {
       // local storage
@@ -28,6 +31,13 @@ export abstract class AppStorage extends AppStorageReader {
     }
   }
 
+  /**
+   * Mise à jour (modification ou ajout) de l'entrée dans le stockage.
+   * @param value Valeur de l'élément dans le stockage
+   * @param removeIfEmpty default true : Indique si on veut supprimer l'entrée du stockage si la valeur est null, undefined ou chaine vide (par défaut oui)
+   * @param removeIfError default true : Indique si on veut supprimer l'entrée du stockage si on a une erreur lors de la mise à jour de la valeur (par défaut oui)
+   * @returns boolean : Résultat de la mise à jour. En cas d'erreur lors de la conversion de la valeur en chaine (lors du passage du JSON.stringify) on renvoit false
+   */
   updateItem<T>(value: T, removeIfEmpty: boolean = true, removeIfError: boolean = true): boolean {
     try {
       if (removeIfEmpty && AppFunctions.valueIsEmpty(value)) {

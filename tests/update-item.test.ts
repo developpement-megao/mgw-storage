@@ -1,7 +1,7 @@
-import { MgwStorage } from "../src";
+import { MgwStorage, StorageType } from "../src";
 
 test('update item local correctly', () => {
-  const stype = 'L';
+  const stype: StorageType = 'L';
   const sname = 'StoTest';
   const updItemValue = 'Test !';
   const sto = new MgwStorage(stype, sname, true);
