@@ -1,6 +1,6 @@
 {
   "name": "mgw-storage",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Gestion local et session storage",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "build": "tsup",
-    "test": "jest"
+    "test": "jest",
+    "publish": "npm publish"
   },
   "repository": {
     "type": "git",
