@@ -10,10 +10,10 @@ function removeSessionItem(storageName: string): void {
   sessionStorage.removeItem(storageName);
 }
 
-export abstract class AppStorage extends AppStorageReader {
-  constructor(removeOnInstanciate: boolean, storageName: string, storageType: StorageType) {
+export abstract class AppStorage<T> extends AppStorageReader {
+  constructor(removeOnInstanciate: boolean, storageName: string, storageType: StorageType, value: T | undefined) {
     super(storageName, storageType);
-    if (removeOnInstanciate) {
+    if (!this.updateItem(value, false, false) && removeOnInstanciate) {
       this.removeItem();
     }
   }
@@ -42,7 +42,10 @@ export abstract class AppStorage extends AppStorageReader {
     try {
       if (removeIfEmpty && AppFunctions.valueIsEmpty(value)) {
         this.removeItem();
-      } else {
+        return false;
+      }
+      // pas vide ou pas demandé à vider
+      if (AppFunctions.valueIsNonNullable(value)) {
         const itemValue: string = typeof value === 'string' ? value : JSON.stringify(value);
         if (this.lStorageType === 'L') {
           // local storage
@@ -51,8 +54,9 @@ export abstract class AppStorage extends AppStorageReader {
           // session storage
           sessionStorage.setItem(this.storageName, itemValue);
         }
+        return true;
       }
-      return true;
+      return false;
     } catch {
       if (removeIfError) {
         this.removeItem();
