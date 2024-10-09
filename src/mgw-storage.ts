@@ -4,14 +4,14 @@ import { StorageType } from './app-storage-reader';
 /**
  * Gestion du stockage local ou de session
  */
-export class MgwStorage<T> extends AppStorage<T> {
+export class MgwStorage extends AppStorage {
   /**
    * Objet pour gérer le stockage local ou de session.
    * @param storageType Type de stockage (L = local ; S = session)
    * @param storageName Nom (clé) de l'élément de stockage
    * @param removeOnInstanciate Indique si on veut supprimer l'entrée du stockage lors de la création de l'objet (par défaut non)
    */
-  constructor(storageType: StorageType, storageName: string, removeOnInstanciate: boolean = false, value?: T) {
+  constructor(storageType: StorageType, storageName: string, removeOnInstanciate: boolean = false, value?: unknown) {
     super(removeOnInstanciate, storageName, storageType, value);
   }
 

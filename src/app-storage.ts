@@ -10,8 +10,8 @@ function removeSessionItem(storageName: string): void {
   sessionStorage.removeItem(storageName);
 }
 
-export abstract class AppStorage<T> extends AppStorageReader {
-  constructor(removeOnInstanciate: boolean, storageName: string, storageType: StorageType, value: T | undefined) {
+export abstract class AppStorage extends AppStorageReader {
+  constructor(removeOnInstanciate: boolean, storageName: string, storageType: StorageType, value: unknown | undefined) {
     super(storageName, storageType);
     if (!this.updateItem(value, false, false) && removeOnInstanciate) {
       this.removeItem();
